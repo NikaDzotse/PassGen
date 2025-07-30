@@ -1,292 +1,160 @@
-# 🔐 Password Wordlist Generator
+# PassGen
 
-A modern, user-friendly GUI application for generating custom password wordlists for security testing and penetration testing purposes.
+A modern, user-friendly GUI application for generating custom password wordlists for security testing and penetration testing purposes. Fully self-contained in one file (`main.py`) with auto-installation and virtual environment support.
 
 ![Password Wordlist Generator](https://img.shields.io/badge/Python-3.7+-blue.svg)
 ![License](https://img.shields.io/badge/License-MIT-green.svg)
 ![Platform](https://img.shields.io/badge/Platform-Linux%20%7C%20Windows%20%7C%20macOS-lightgrey.svg)
 
-## ✨ Features
+## Features
 
-- **Modern GUI**: Clean, dark-themed interface built with CustomTkinter
-- **Two Generation Modes**: Standard (all combinations) and Custom Words (based on your input)
-- **Flexible Character Sets**: Choose from uppercase, lowercase, digits, and symbols
-- **Custom Characters**: Add your own special characters (Unicode support)
-- **Word Modifications**: Capitalize, reverse, leet speak, add numbers/symbols to custom words
-- **Real-time Preview**: See character set and estimated combinations before generating
-- **Progress Tracking**: Real-time progress bar and generation counter
-- **Size Warnings**: Automatic warnings for large wordlists that could take a long time
-- **Threaded Generation**: Non-blocking UI during wordlist generation
-- **File Save Dialog**: Choose where to save your wordlist
-- **Cross-platform**: Works on Linux, Windows, and macOS
+* Custom word generation based on user input with multiple modification options
+* Modifications include capitalization, reversal, leet speak, and addition of numbers/symbols
+* Real-time preview of estimated wordlist size
+* Real-time progress bar and counter
+* Threaded generation for responsive UI
+* File dialog for saving generated wordlists
+* Automatic virtual environment creation and dependency installation
+* Cross-platform support (Linux, Windows, macOS)
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 
-- Python 3.7 or higher
-- pip (Python package installer)
+* Python 3.7 or higher
 
-### Installation
+### Run the Application
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/yourusername/password-wordlist-generator.git
-   cd password-wordlist-generator
-   ```
+```bash
+python3 main.py
+```
 
-2. **Install dependencies:**
+* Automatically sets up a virtual environment in `venv/`
+* Installs `customtkinter` if missing
+* Re-launches the app inside the virtual environment
 
-   **Option A: Using virtual environment (recommended for Kali Linux):**
-   ```bash
-   python3 -m venv venv
-   venv/bin/pip install -r requirements.txt
-   ```
+### Optional: Manual Setup
 
-   **Option B: Using pipx (alternative):**
-   ```bash
-   pipx install customtkinter pillow
-   ```
+```bash
+python3 -m venv venv
+venv/bin/pip install -r requirements.txt
+venv/bin/python main.py
+```
 
-   **Option C: System-wide installation (not recommended on Kali):**
-   ```bash
-   pip install -r requirements.txt --break-system-packages
-   ```
+## Usage Guide
 
-3. **Run the application:**
+### Custom Words Generation
 
-   **With virtual environment:**
-   ```bash
-   venv/bin/python main.py
-   ```
+1. Enter custom words (one per line or comma-separated)
+2. Select desired word modifications:
 
-   **With pipx or system installation:**
-   ```bash
-   python3 main.py
-   ```
+   * Add numbers (0-9)
+   * Add symbols (!@#\$%^&\*)
+   * Capitalize variations (Admin, ADMIN, admin)
+   * Reverse words (e.g., admin to nimda)
+   * Apply leet speak (e.g., admin to @dm1n)
+3. View estimated combinations
+4. Click "Generate Wordlist" and choose save location
 
-## 📖 Usage Guide
+### Word Modifications Summary
 
-### Basic Usage
+| Modification | Example        |
+| ------------ | -------------- |
+| Numbers      | admin1, 1admin |
+| Symbols      | admin!, !admin |
+| Capitalize   | Admin, ADMIN   |
+| Reverse      | nimda          |
+| Leet Speak   | @dm1n          |
 
-#### Standard Generation Mode
-1. **Select "Standard Generation"** mode
-2. **Set Password Length**: Enter the desired password length (1-20 characters)
-3. **Select Character Sets**: Choose which character types to include:
-   - ✅ Uppercase letters (A-Z)
-   - ✅ Lowercase letters (a-z)
-   - ✅ Digits (0-9)
-   - ✅ Symbols (!@#$%^&*)
-4. **Add Custom Characters** (Optional): Enter additional characters like `ñ`, `é`, `中文`
-5. **Preview**: Check the estimated number of combinations
-6. **Generate**: Click "Generate Wordlist" and choose where to save the file
+### Estimated Sizes
 
-#### Custom Words Mode
-1. **Select "Custom Words Generation"** mode
-2. **Enter Your Words**: Type your custom words (one per line or separated by commas)
-3. **Select Word Modifications**:
-   - ✅ Add numbers (0-9) before/after words
-   - ✅ Add symbols (!@#$%^&*) before/after words
-   - ✅ Capitalize variations (Admin, ADMIN, admin)
-   - ✅ Reverse words (admin → nimda)
-   - ✅ Leet speak (admin → @dm1n)
-4. **Preview**: See estimated number of generated passwords
-5. **Generate**: Click "Generate Wordlist" and choose where to save the file
+| Words | Modifications     | Estimated Count |
+| ----- | ----------------- | --------------- |
+| 2     | All               | \~2,758         |
+| 4     | Numbers + Capital | \~252           |
+| 6     | Numbers + Symbols | \~3,546         |
 
-### Advanced Features
-
-#### Generation Modes
-
-| Mode | Description | Use Case |
-|------|-------------|----------|
-| **Standard Generation** | Generate all possible combinations | Brute force attacks, comprehensive testing |
-| **Custom Words** | Generate variations of your words | Targeted attacks, company-specific testing |
-
-#### Character Set Combinations
-
-| Character Set | Characters | Example |
-|---------------|------------|---------|
-| Uppercase | A-Z (26 chars) | `ABCDEFGHIJKLMNOPQRSTUVWXYZ` |
-| Lowercase | a-z (26 chars) | `abcdefghijklmnopqrstuvwxyz` |
-| Digits | 0-9 (10 chars) | `0123456789` |
-| Symbols | Special chars (32 chars) | `!@#$%^&*()_+-=[]{}|;:,.<>?` |
-| Custom | User-defined | Any Unicode characters |
-
-#### Word Modifications (Custom Words Mode)
-
-| Modification | Description | Example |
-|--------------|-------------|---------|
-| **Add Numbers** | Add 0-9 before/after words | `admin` → `admin1`, `1admin` |
-| **Add Symbols** | Add symbols before/after words | `admin` → `admin!`, `!admin` |
-| **Capitalize** | Create case variations | `admin` → `Admin`, `ADMIN`, `admin` |
-| **Reverse** | Reverse word order | `admin` → `nimda` |
-| **Leet Speak** | Replace letters with symbols | `admin` → `@dm1n` |
-
-#### Size Estimation Examples
-
-##### Standard Generation
-| Length | Charset Size | Combinations | File Size (approx) |
-|--------|--------------|--------------|-------------------|
-| 4 | 62 (A-Z, a-z, 0-9) | 14,776,336 | ~150 MB |
-| 6 | 26 (a-z only) | 308,915,776 | ~3 GB |
-| 8 | 62 (A-Z, a-z, 0-9) | 218,340,105,584 | ~2 TB |
-
-##### Custom Words Generation
-| Base Words | Modifications | Generated Passwords | Example |
-|------------|---------------|-------------------|---------|
-| 4 words | Numbers + Capitalize | ~252 passwords | `admin`, `password`, `user`, `john` |
-| 2 words | All modifications | ~2,758 passwords | `admin`, `password` |
-| 6 words | Numbers + Symbols + Capitalize | ~3,546 passwords | Company names |
-
-⚠️ **Warning**: Large wordlists can consume significant disk space and take a very long time to generate!
+Note: Very large wordlists (100,000+ entries) may require significant disk space and time.
 
 ### Safety Features
 
-- **Input Validation**: Ensures valid password length and character sets
-- **Size Warnings**: Automatic warnings for wordlists > 100 million combinations
-- **Progress Tracking**: Real-time progress updates during generation
-- **Stop Function**: Ability to stop generation at any time
-- **Error Handling**: Graceful error handling with user-friendly messages
+* Validates inputs before starting generation
+* Warns users of large output sizes
+* Real-time progress feedback
+* User-initiated cancellation support
+* Error messaging and exception handling
 
-## 🛠️ Technical Details
+## Technical Details
 
-### Architecture
-
-The application is built with a modular design:
+### Project Structure
 
 ```
 PasswordWordlistGenerator/
-├── main.py              # Main application logic
-├── requirements.txt     # Python dependencies
-└── README.md           # This file
+├── main.py              # Self-contained app with auto-venv and GUI
+├── requirements.txt     # Optional dependency list
+├── README.md            # Project documentation
 ```
 
-### Key Components
+### Auto Virtual Environment Bootstrapping
 
-- **GUI Framework**: CustomTkinter for modern, responsive interface
-- **Threading**: Separate thread for wordlist generation to keep UI responsive
-- **File I/O**: UTF-8 encoding support for international characters
-- **Memory Management**: Efficient recursive generation algorithm
-- **Progress Updates**: Real-time progress tracking with UI updates
-
-### Algorithm
-
-The wordlist generation uses a recursive algorithm to generate all possible combinations:
+`main.py` creates a virtual environment and restarts the app within it:
 
 ```python
-def generate_combinations(charset, length, file_handle):
-    def generate_recursive(current, remaining_length):
-        if remaining_length == 0:
-            file_handle.write(current + '\n')
-            return
-        for char in charset:
-            generate_recursive(current + char, remaining_length - 1)
-    
-    generate_recursive("", length)
+if not os.path.exists("venv/bin/python"):
+    subprocess.run(["python3", "-m", "venv", "venv"])
+os.execv("venv/bin/python", ["venv/bin/python"] + sys.argv)
 ```
 
-## 🔧 Customization
+### Installation-Free Execution
 
-### Themes
+* Simply run `python3 main.py`
+* No separate install or setup scripts required
 
-The application supports different appearance modes:
+### Required Dependency
 
-```python
-# In main.py, change these lines:
-ctk.set_appearance_mode("dark")  # Options: "dark", "light", "system"
-ctk.set_default_color_theme("blue")  # Options: "blue", "green", "dark-blue"
+```txt
+customtkinter
 ```
 
-### Character Sets
-
-You can modify the symbol set in the `get_character_set()` method:
-
-```python
-if self.symbols_var.get():
-    charset.update("!@#$%^&*()_+-=[]{}|;:,.<>?")  # Modify this line
-```
-
-## 📦 Building Executables
+## Packaging (Optional)
 
 ### Using PyInstaller
 
-1. **Install PyInstaller:**
-   ```bash
-   pip install pyinstaller
-   ```
+```bash
+pip install pyinstaller
+pyinstaller --onefile --windowed main.py
+```
 
-2. **Build executable:**
-   ```bash
-   pyinstaller --onefile --windowed --name "PasswordWordlistGenerator" main.py
-   ```
+### Using Shiv
 
-3. **Find the executable** in the `dist/` folder
+```bash
+pip install shiv
+shiv -o passwordgen.pyz -e main:main .
+```
 
-### Using Shiv (Alternative)
-
-1. **Install Shiv:**
-   ```bash
-   pip install shiv
-   ```
-
-2. **Build executable:**
-   ```bash
-   shiv -o password-generator.pyz -e main:main .
-   ```
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-### Development Setup
+## Contributing
 
 1. Fork the repository
-2. Create a feature branch: `git checkout -b feature-name`
-3. Make your changes
-4. Test thoroughly
-5. Commit your changes: `git commit -am 'Add feature'`
-6. Push to the branch: `git push origin feature-name`
-7. Submit a Pull Request
+2. Create a new feature branch: `git checkout -b feature`
+3. Commit and push changes
+4. Submit a pull request
 
-## 📄 License
+## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License. See the `LICENSE` file for details.
 
-## ⚠️ Disclaimer
+## Disclaimer
 
-This tool is intended for **legitimate security testing purposes only**. Users are responsible for ensuring they have proper authorization before using this tool against any systems or networks. The authors are not responsible for any misuse of this software.
+This tool is intended strictly for authorized security testing. Users are responsible for ensuring they comply with applicable laws and regulations.
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
-### Common Issues
-
-1. **Import Error: No module named 'customtkinter'**
-   - Solution: Run `pip install -r requirements.txt`
-
-2. **GUI not appearing**
-   - Solution: Ensure you have a display server running (X11 on Linux)
-
-3. **Large wordlists taking too long**
-   - Solution: Use smaller character sets or shorter password lengths
-
-4. **Out of memory errors**
-   - Solution: The application writes directly to disk, but very large wordlists may still cause issues
-
-### System Requirements
-
-- **Python**: 3.7 or higher
-- **Memory**: 512 MB RAM minimum (more for large wordlists)
-- **Disk Space**: Varies based on wordlist size
-- **Display**: Any modern display server (X11, Wayland, etc.)
-
-## 📞 Support
-
-If you encounter any issues or have questions:
-
-1. Check the troubleshooting section above
-2. Search existing issues on GitHub
-3. Create a new issue with detailed information about your problem
+| Issue                           | Suggested Action                            |
+| ------------------------------- | ------------------------------------------- |
+| No module named 'customtkinter' | Run `python3 main.py` to auto-install       |
+| GUI does not appear             | Ensure you are running in a GUI environment |
+| High memory usage               | Reduce the wordlist size or word length     |
 
 ---
 
-**Happy Password Testing! 🔐** 
+For feedback, issues, or questions, please use the GitHub issue tracker.
